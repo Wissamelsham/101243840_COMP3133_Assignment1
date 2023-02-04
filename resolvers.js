@@ -57,8 +57,9 @@ exports.resolvers = {
         },
 
         //View a Employee
-        async getEmployee(_,{id}){
+        async getEmployee(_,{id},context){
             try{
+                const employee = checkAuth(context);
                 const Employee1 = await Employee.findById(id)
                 if(Employee1){
                     return Employee1;
@@ -68,6 +69,12 @@ exports.resolvers = {
             }catch(err){
                 throw new Error(err);
             }
+        },
+
+        //View Employees
+         getEmployees: async (parent, args,context) => {
+             const employee = checkAuth(context);
+             return await Employee.find({});
         },
 
     },
