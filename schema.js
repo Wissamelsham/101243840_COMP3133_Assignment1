@@ -13,9 +13,11 @@ exports.typeDefs = gql `
 
     type Employee {
       id: ID!
-      username: String!
-      password:String!
+      firstname: String!
+      lastname:String!
       email:String!
+      gender:String!
+      salary:Float!
     }
 
     
@@ -31,6 +33,14 @@ exports.typeDefs = gql `
         email:String! 
         password:String!
       ):User
+
+      addNewEmployee(
+        firstname: String!
+        lastname:String!
+        email:String!
+        gender:String!
+        salary:Float!
+      ):Employee
     }
     
 

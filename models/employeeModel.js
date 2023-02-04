@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const EmployeeSchema = new mongoose.Schema({
 
   firstname: {
     type: String,
@@ -34,6 +34,6 @@ const UserSchema = new mongoose.Schema({
   
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Employee', EmployeeSchema);
 
 

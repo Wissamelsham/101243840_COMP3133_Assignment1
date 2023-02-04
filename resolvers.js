@@ -1,4 +1,5 @@
 const User = require('./models/userModel');
+const Employee = require('./models/employeeModel');
 const jwt =require('jsonwebtoken');
 const {validateLoginInput} = require('./validation');
 const { UserInputError } = require('apollo-server-express');
@@ -84,9 +85,29 @@ exports.resolvers = {
             id:res._id,
             token
         };
+        },
 
+        addNewEmployee: async (parent, args,context) => {
+            console.log(args)
+            const employee = checkAuth(context);
+            const emailExpression = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            const isValidEmail =  emailExpression.test(String(args.email).toLowerCase())
+            
+            if(!isValidEmail){
+                throw new Error("email not in proper format")
+            }
+    
+                let newEmployee = new Employee({
+                    firstname: args.firstname,
+                    lastname: args.lastname,
+                    email:args.email,
+                    gender:args.gender,
+                    salary:args.salary
+                });
 
-        }
+            return  await newEmployee.save();
+
+            }
 
     }
   }
