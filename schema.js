@@ -51,6 +51,10 @@ exports.typeDefs = gql `
         gender:String
         salary:Float
       ):Employee
+
+      deleteEmployee(
+        id: ID!
+      ):Employee
     }
     
 

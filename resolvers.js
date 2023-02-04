@@ -152,6 +152,16 @@ exports.resolvers = {
                 }
               
                 return updatedEmployee;
+              },
+
+              deleteEmployee: async (parent, args, context) => {
+                console.log(args)
+                const employee = checkAuth(context);
+                const deletedEmployee = await Employee.findByIdAndDelete(args.id);
+                if (!deletedEmployee) {
+                  throw new Error("Employee not found");
+                }
+                return deletedEmployee;
               }
 
     }
