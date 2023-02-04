@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: [true, 'Enter your User Name'],
-    trim: true,
-    lowercase: true,
 
+  firstname: {
+    type: String,
+    required: [true, 'Enter the First Name']
+  },
+
+  lastname: {
+    type: String,
+    required: [true, 'Enter the Last Name']
   },
   email: {
     type: String,
@@ -19,12 +22,14 @@ const UserSchema = new mongoose.Schema({
       return emailRegex.test(value);
     }
   },
-  password: {
+  gender: {
     type: String,
-    required: [true,'Enter your Password'],
-    minlength:6,
+    required: [true,'Enter the Gender']
   },
-
+  salary: {
+    type: Number,
+    required: [true,'Enter the Salary']
+  }
 
   
 });
