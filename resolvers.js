@@ -121,7 +121,38 @@ exports.resolvers = {
 
             return  await newEmployee.save();
 
-            }
+            },
+
+        updateEmployee: async (parent, args, context) => {
+                console.log(args)
+                const employee = checkAuth(context);
+                const updates = {};
+                if (args.firstname) updates.firstname = args.firstname;
+                if (args.lastname) updates.lastname = args.lastname;
+                if (args.email){
+                    const emailExpression = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                    const isValidEmail =  emailExpression.test(String(args.email).toLowerCase());
+                  
+                    if (!isValidEmail) {
+                      throw new Error("email not in proper format");
+                    }
+                    updates.email = args.email;
+                }
+                if (args.gender) updates.gender = args.gender;
+                if (args.salary) updates.salary = args.salary;
+              
+                const updatedEmployee = await Employee.findByIdAndUpdate(
+                  args.id,
+                  updates,
+                  { new: true }
+                );
+              
+                if (!updatedEmployee) {
+                  throw new Error("Employee not found");
+                }
+              
+                return updatedEmployee;
+              }
 
     }
   }

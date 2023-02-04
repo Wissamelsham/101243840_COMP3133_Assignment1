@@ -42,6 +42,15 @@ exports.typeDefs = gql `
         gender:String!
         salary:Float!
       ):Employee
+
+      updateEmployee(
+        id: ID!
+        firstname: String
+        lastname:String
+        email:String
+        gender:String
+        salary:Float
+      ):Employee
     }
     
 
