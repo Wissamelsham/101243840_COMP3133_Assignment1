@@ -12,7 +12,6 @@ function generateToken(user){
         id: user.id,
         email:user.email,
         username:user.username,
-        type:user.type
     },process.env.SECRET_KEY,{expiresIn: '1h'});
 }
 
@@ -26,7 +25,35 @@ exports.resolvers = {
             return await User.find({});
         },
 
-       
+        //Login
+        async login(_,{username,password}){
+            const {errors,valid} = validateLoginInput(username,password);
+            const user = await User.findOne({username});
+    
+            if(!valid){
+                throw new UserInputError('Errors',{errors});
+            } 
+    
+    
+            if(!user){
+                errors.general ="User not found";
+                throw new UserInputError('User not found',{errors});
+            }
+            
+    
+            if(password!=user.password){
+                errors.general ="Wrong credentials";
+                throw new UserInputError('Wrong credentials',{errors});
+            }
+    
+            const token = generateToken(user);
+    
+            return{
+                ...user._doc,
+                id:user._id,
+                token
+            };
+        },
 
     },
     

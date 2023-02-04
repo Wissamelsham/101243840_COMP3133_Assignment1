@@ -16,13 +16,13 @@ exports.typeDefs = gql `
       username: String!
       password:String!
       email:String!
-      token: String!
     }
 
     
     type Query {
      
       getUser:[User]
+      login(username:String!,password:String!):User
     }
 
     type Mutation {
