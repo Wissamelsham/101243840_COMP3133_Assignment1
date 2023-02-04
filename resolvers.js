@@ -56,6 +56,20 @@ exports.resolvers = {
             };
         },
 
+        //View a Employee
+        async getEmployee(_,{id}){
+            try{
+                const Employee1 = await Employee.findById(id)
+                if(Employee1){
+                    return Employee1;
+                }else{
+                    throw new Error('Employee not found');
+                }
+            }catch(err){
+                throw new Error(err);
+            }
+        },
+
     },
     
    

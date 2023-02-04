@@ -25,6 +25,7 @@ exports.typeDefs = gql `
      
       getUser:[User]
       login(username:String!,password:String!):User
+      getEmployee(id: ID!):Employee
     }
 
     type Mutation {
