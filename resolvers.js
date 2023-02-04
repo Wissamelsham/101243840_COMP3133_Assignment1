@@ -33,6 +33,33 @@ exports.resolvers = {
    
     Mutation: {
 
+    //Add user
+    addUser: async (parent, args) => {
+        console.log(args)
+        const emailExpression = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        const isValidEmail =  emailExpression.test(String(args.email).toLowerCase())
+        
+        if(!isValidEmail){
+            throw new Error("email not in proper format")
+        }
+
+            let newUser = new User({
+                username: args.username,
+                email: args.email,
+                password:args.password
+            });
+        const res = await newUser.save();
+
+        const token = generateToken(res);
+
+        return{
+            ...res._doc,
+            id:res._id,
+            token
+        };
+
+
+        }
 
     }
   }
